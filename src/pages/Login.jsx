@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ usuario_email: '', usuario_senha: '' });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (evento) => {
+    setForm({ ...form, [evento.target.name]: evento.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -17,17 +18,22 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8080/api/login', {
+      const response = await fetch('http://localhost:8000/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
 
-      if (!response.ok) {
-        throw new Error('Credenciais inválidas');
+      const data = await response.json();
+
+      if (data.type) {
+        toast(`Aviso: ${data.description}`, {
+          position: "bottom-right",
+          className: "bg-red-600! text-white!"
+        });
+        return;
       }
 
-      const data = await response.json();
       localStorage.setItem('token', data.token);
       navigate('/inicio');
     } catch (err) {
@@ -70,7 +76,7 @@ const Login = () => {
               </label>
               <input
                 type="email"
-                name="email"
+                name="usuario_email"
                 id="email"
                 placeholder="email@alugaweb.com"
                 required
@@ -86,7 +92,7 @@ const Login = () => {
               </label>
               <input
                 type="password"
-                name="password"
+                name="usuario_senha"
                 id="password"
                 placeholder="••••••••"
                 required
@@ -97,14 +103,14 @@ const Login = () => {
             </div>
 
             <div className="flex items-center justify-between text-sm">
-              <a 
-                href="/recuperar-senha" 
+              <a
+                href="/recuperar-senha"
                 className="text-orange-600 hover:text-orange-700 font-medium transition-colors"
               >
                 Esqueceu minha senha
               </a>
-              <a 
-                href="/criar-conta" 
+              <a
+                href="/cadastro"
                 className="text-gray-600 hover:text-gray-800 font-medium transition-colors"
               >
                 Criar conta
@@ -114,13 +120,12 @@ const Login = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className={`w-full py-3 px-4 rounded-lg font-medium text-white transition-colors ${
-                isLoading 
-                  ? 'bg-orange-400 cursor-not-allowed' 
+              className={`w-full py-3 px-4 rounded-lg font-medium text-white transition-colors ${isLoading
+                  ? 'bg-orange-400 cursor-not-allowed'
                   : 'bg-orange-600 hover:bg-orange-700'
-              }`}
+                }`}
             >
-                <p className="font-bold">Entrar</p>
+              <p className="font-bold">Entrar</p>
             </button>
           </div>
         </form>
