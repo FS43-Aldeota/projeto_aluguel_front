@@ -1,3 +1,4 @@
+// No seu arquivo Rotas.jsx
 import { BrowserRouter, Route, Routes } from "react-router";
 import Inicio from "../pages/Inicio";
 import Login from "../pages/Login";
@@ -16,6 +17,7 @@ const Rotas = () => {
                 </Route>
                 <Route path="/login" element={<Login />} />
                 <Route path="/cadastro" element={<Cadastro />} />
+                <Route path="/teste-card" element={<TesteImovelCard />} />
             </Routes>
         </BrowserRouter>
     );
