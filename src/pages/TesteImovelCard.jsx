@@ -1,5 +1,6 @@
 import ImovelCard from "../components/ImovelCard";
 
+
 const TesteImovelCard = () => {
     const imovelTeste = {
         imovel_nome: "Casa na Praia",

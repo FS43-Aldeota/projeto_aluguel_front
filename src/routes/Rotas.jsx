@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import Cadastro from "../pages/Cadastro";
 import PageLayout from "../layouts/PageLayout";
 import Pesquisa from "../pages/Pesquisa";
+import TesteImovelCard from "../pages/TesteImovelCard";
 
 
 const Rotas = () => {
