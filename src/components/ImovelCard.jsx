@@ -4,7 +4,7 @@ import { FaCar } from "react-icons/fa";
 
 const ImovelCard = ({ imovel }) => {
     return (
-        <div className="flex flex-col md:flex-row border rounded-lg shadow-md overflow-hidden">
+        <div className="flex flex-col md:flex-row rounded-lg shadow-md overflow-hidden">
             <div className="md:w-1/3 w-full">
                 <img
                     src={imovel.imagem_url || "https://via.placeholder.com/400x300"}
