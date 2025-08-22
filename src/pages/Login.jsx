@@ -50,8 +50,8 @@ const Login = () => {
           onSubmit={handleSubmit}
           className="w-full max-w-md bg-white shadow-lg rounded-xl p-8 sm:p-10 flex flex-col"
         >
-          <div className="flex justify-center items-center mb-8">
-            <div className="bg-orange-600 p-2 rounded-lg mb-4 mr-3">
+          <div className="flex justify-center items-center mb-8 gap-4">
+            <div className="bg-orange-600 p-2 rounded-lg">
               <img
                 src="/src/assets/favicon.png"
                 alt="Logo AlugaWeb"
