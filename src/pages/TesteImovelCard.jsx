@@ -1,4 +1,6 @@
 import ImovelCard from "../components/ImovelCard";
+import PesquisaFiltro from "../components/PesquisaFiltro";
+import Pesquisa from "./Pesquisa";
 
 
 const TesteImovelCard = () => {
@@ -23,6 +25,8 @@ const TesteImovelCard = () => {
             <div className="max-w-3xl mx-auto">
                 <ImovelCard imovel={imovelTeste} />
             </div>
+
+            <PesquisaFiltro />
         </div>
     );
 };
