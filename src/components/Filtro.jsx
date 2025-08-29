@@ -4,7 +4,7 @@ const Filtro = ({ titulo }) => {
     return (
         <div className="px-[28px] py-[34px]">
             <h3 className="text-gray-800 font-semibold">{titulo}</h3>
-            <div className="flex gap-4 mt-[14px]" >
+            <div className="grid grid-cols-4 gap-4 mt-[14px]" >
                 <Button titulo="+1" />
                 <Button titulo="+2" />
                 <Button titulo="+3" />

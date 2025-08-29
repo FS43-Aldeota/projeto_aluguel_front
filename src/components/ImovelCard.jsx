@@ -2,22 +2,33 @@ import { HeartIcon } from "@heroicons/react/24/outline";
 import { ArrowsPointingOutIcon, HomeIcon } from "@heroicons/react/24/outline";
 import { FaCar } from "react-icons/fa";
 
-const ImovelCard = ({ imovel }) => {
+const ImovelCard = ({ imovel, direcao }) => {
     return (
-        <div className="flex flex-col md:flex-row rounded-lg shadow-md overflow-hidden">
-            <div className="md:w-1/3 w-full">
+        <div className={`flex ${direcao == "x" ? "flex-row" : "flex-col"} rounded-lg border border-black/15 overflow-hidden`}>
+            <div className={`${direcao == "x" && "w-2/5"} w-full`}>
                 <img
                     src={imovel.imagem_url || "https://via.placeholder.com/400x300"}
                     alt={imovel.imovel_nome}
-                    className="w-full h-52 md:h-full object-cover"
+                    className={`w-full h-52 ${direcao == "x" && "h-full"} md: object-cover`}
                 />
             </div>
 
             <div className="flex-1 p-4 flex flex-col justify-between">
-                <p className="font-semibold text-gray-800">
-                    {imovel.imovel_endereco}, {imovel.imovel_endereco_numero}
-                </p>
-                <p className="text-sm text-gray-600">{imovel.imovel_bairro}</p>
+                <div>
+                    <div>
+                        <p className="font-semibold text-gray-800">
+                            {imovel.imovel_endereco}, {imovel.imovel_endereco_numero}
+                        </p>
+                        <p className="text-sm text-gray-600">{imovel.imovel_bairro}</p>
+                    </div>
+                    {
+                        !direcao == "x" && (
+                            <button className="text-gray-400 hover:text-orange-600">
+                                <box-icon name='trash'></box-icon>
+                            </button>
+                        )
+                    }
+                </div>
 
                 <p className="text-sm text-gray-600 my-2 line-clamp-2">
                     {imovel.imovel_descricao}
@@ -40,11 +51,15 @@ const ImovelCard = ({ imovel }) => {
             </div>
 
 
-            <div className="flex md:flex-col justify-between items-center md:items-end p-4 w-full md:w-1/4 gap-3">
+            <div className={`flex ${direcao == "x" ? "flex-col" : "flex-row"}justify-between items-center md:items-end p-4 w-full md:w-1/4 gap-3`}>
 
-                <button className="text-gray-400 hover:text-orange-600">
-                    <HeartIcon className="w-7 h-7" />
-                </button>
+                {
+                    direcao == "x" && (
+                        <button className="text-gray-400 hover:text-orange-600">
+                            <HeartIcon className="w-7 h-7" />
+                        </button>
+                    )
+                }
 
                 <p className="font-bold text-lg md:text-xl text-orange-600">
                     R$ {imovel.preco?.toLocaleString("pt-BR") || "Consultar"}

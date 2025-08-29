@@ -6,6 +6,7 @@ import Cadastro from "../pages/Cadastro";
 import PageLayout from "../layouts/PageLayout";
 import Pesquisa from "../pages/Pesquisa";
 import TesteImovelCard from "../pages/TesteImovelCard";
+import Favoritos from "../pages/Favoritos";
 
 
 const Rotas = () => {
@@ -15,6 +16,7 @@ const Rotas = () => {
                 <Route path="/" element={<PageLayout />}>
                     <Route index element={<Inicio />} />
                     <Route path="/pesquisa" element={<Pesquisa />} />
+                    <Route path="/favoritos" element={<Favoritos />} />
                 </Route>
                 <Route path="/login" element={<Login />} />
                 <Route path="/cadastro" element={<Cadastro />} />
