@@ -16,7 +16,7 @@ const Inicio = () => {
     console.log(numero);
     return (
         <>
-            alguma coisa
+            
         </>
     );
 }
