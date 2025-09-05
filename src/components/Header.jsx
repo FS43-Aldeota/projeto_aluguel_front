@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import logo from "../assets/Favicon.png"
 import Button from "./Button";
 import ButtonLink from "./ButtonLink";
@@ -5,6 +6,8 @@ import { useState } from 'react';
 const Header = () => {
     const logado = true;
     const [menuAberto, setMenuAberto] = useState(false);
+    const navigate = useNavigate();
+    const usuario = JSON.parse(sessionStorage.getItem("usuario"));
 
     return (
         <header className="px-4 lg:px-[50px] py-4 flex justify-between items-center border-b border-black/15">
@@ -24,10 +27,17 @@ const Header = () => {
                     <>
                         <div className="hidden lg:flex items-center gap-[50px]">
                             <ButtonLink titulo={"Favoritos"} icon={<box-icon name='heart' ></box-icon>} />
+                            <Button titulo={"Anunciar"} icon={<box-icon type='solid' name='megaphone'></box-icon>} />
                             <div className="flex gap-3">
                                 <div className="text-right">
-                                    <h3 className="font-semibold text-orange-600">Usuario</h3>
-                                    <a className="text-gray-800! font-semibold text-[12px]" href="">Sair</a>
+                                    <h3 className="font-semibold text-orange-600">{usuario.usuario_nome}</h3>
+                                    <a 
+                                    className="text-gray-800! font-semibold text-[12px]" 
+                                    onClick={() => {
+                                        sessionStorage.clear()
+                                        navigate("/login")
+                                    }}
+                                    >Sair</a>
                                 </div>
                                 <div className="w-[50px] h-[50px] bg-orange-600 rounded-full"></div>
                             </div>
@@ -47,17 +57,28 @@ const Header = () => {
                             <div className="flex gap-4 items-center bg-orange-600/7 px-4 py-5">
                                 <div className="w-[70px] h-[70px] bg-orange-600 rounded-full"></div>
                                 <div className="text-right">
-                                    <h3 className="font-semibold text-orange-600 text-xl">Usuario</h3>
+                                    <h3 className="font-semibold text-orange-600 text-xl">{usuario.usuario_nome}</h3>
                                 </div>
                             </div>
                             <nav className="py-4 flex flex-col gap-4">
                                 <ButtonLink titulo={"Favoritos"} icon={<box-icon name='heart' ></box-icon>} />
-                                <ButtonLink titulo={"Sair"} icon={<box-icon name='log-out' ></box-icon>} />
+                                <ButtonLink
+                                    titulo={"Sair"}
+                                    icon={<box-icon name='log-out'></box-icon>}
+                                    onClick={() => {
+                                        sessionStorage.clear()
+                                        navigate("/login")
+                                    }}
+                                />
                             </nav>
                         </div>
                     </>
                 ) : (
-                    <Button titulo={"Entrar"} icon={<box-icon name='user'></box-icon>} />
+                    <Button
+                        titulo={"Entrar"}
+                        icon={<box-icon name='user'></box-icon>}
+                        onClick={() => navigate("/login")}
+                    />
                 )
             }
 

@@ -12,7 +12,7 @@ const Cadastro = () => {
         setForm({ ...form, [evento.target.name]: evento.target.value });
     };
 
-    const handleSubmit = async (e) => {
+    const cadastrar = async (e) => {
         e.preventDefault();
         setError('');
         setIsLoading(true);
@@ -26,7 +26,7 @@ const Cadastro = () => {
 
             const data = await response.json();
 
-            if (data.type) {
+            if (data.type != "success") {
                 toast(`Aviso: ${data.description}`, {
                     position: "bottom-right",
                     className: "bg-red-600! text-white!"
@@ -51,7 +51,7 @@ const Cadastro = () => {
         <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-gray-100 font-inter">
             <main className="flex-grow flex items-center justify-center px-4">
                 <form
-                    onSubmit={handleSubmit}
+                    onSubmit={cadastrar}
                     className="w-full max-w-md bg-white shadow-lg rounded-xl p-8 sm:p-10 flex flex-col relative"
                 >
                     <a href="/login" className='absolute top-[46px] left-[28px] fill-orange-600'><box-icon name='arrow-back'></box-icon></a>

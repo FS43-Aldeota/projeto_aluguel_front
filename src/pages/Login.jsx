@@ -12,7 +12,7 @@ const Login = () => {
     setForm({ ...form, [evento.target.name]: evento.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const logar = async (e) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
@@ -26,7 +26,7 @@ const Login = () => {
 
       const data = await response.json();
 
-      if (data.type) {
+      if (data.type != "success") {
         toast(`Aviso: ${data.description}`, {
           position: "bottom-right",
           className: "bg-red-600! text-white!"
@@ -34,8 +34,9 @@ const Login = () => {
         return;
       }
 
-      localStorage.setItem('token', data.token);
-      navigate('/inicio');
+      sessionStorage.setItem('token', data.token);
+      sessionStorage.setItem('usuario', JSON.stringify(data.usuario));
+      navigate('/pesquisa');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -47,7 +48,7 @@ const Login = () => {
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-gray-100 font-inter">
       <main className="flex-grow flex items-center justify-center px-4">
         <form
-          onSubmit={handleSubmit}
+          onSubmit={logar}
           className="w-full max-w-md bg-white shadow-lg rounded-xl p-8 sm:p-10 flex flex-col"
         >
           <div className="flex justify-center items-center mb-8 gap-4">
