@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
+import { LogadoContext } from '../contexts/LogadoContext';
 
 const Login = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ usuario_email: '', usuario_senha: '' });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { setLogado } = useContext(LogadoContext);
 
   const handleChange = (evento) => {
     setForm({ ...form, [evento.target.name]: evento.target.value });
@@ -36,6 +38,7 @@ const Login = () => {
 
       sessionStorage.setItem('token', data.token);
       sessionStorage.setItem('usuario', JSON.stringify(data.usuario));
+      setLogado(true);
       navigate('/pesquisa');
     } catch (err) {
       setError(err.message);

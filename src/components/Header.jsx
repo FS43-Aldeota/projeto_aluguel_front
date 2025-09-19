@@ -1,13 +1,14 @@
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import logo from "../assets/Favicon.png"
 import Button from "./Button";
 import ButtonLink from "./ButtonLink";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { LogadoContext } from "../contexts/LogadoContext";
 const Header = () => {
-    const logado = true;
+    const { logado } = useContext(LogadoContext);
     const [menuAberto, setMenuAberto] = useState(false);
     const navigate = useNavigate();
-    const usuario = JSON.parse(sessionStorage.getItem("usuario"));
+    const usuario = JSON.parse(sessionStorage.getItem("usuario")) || {};
 
     return (
         <header className="px-4 lg:px-[50px] py-4 flex justify-between items-center border-b border-black/15">
@@ -30,7 +31,14 @@ const Header = () => {
                             <Button titulo={"Anunciar"} icon={<box-icon type='solid' name='megaphone'></box-icon>} />
                             <div className="flex gap-3">
                                 <div className="text-right">
-                                    <h3 className="font-semibold text-orange-600">{usuario.usuario_nome}</h3>
+                                    <a 
+                                        className="font-bold text-orange-600! block"
+                                        onClick={() => {
+                                            navigate("/meu-perfil")
+                                        }}
+                                    >
+                                        {usuario.usuario_nome}
+                                    </a>
                                     <a 
                                     className="text-gray-800! font-semibold text-[12px]" 
                                     onClick={() => {
@@ -39,7 +47,11 @@ const Header = () => {
                                     }}
                                     >Sair</a>
                                 </div>
-                                <div className="w-[50px] h-[50px] bg-orange-600 rounded-full"></div>
+                                <Link to={"/meu-perfil"}>
+                                    <div className="w-[50px] h-[50px] bg-orange-600 rounded-full flex justify-center items-center">
+                                        <span className="text-white font-semibold text-3xl leading-[50px]">{usuario.usuario_nome[0].toUpperCase()}</span>
+                                    </div>
+                                </Link>
                             </div>
                         </div>
                         <box-icon name='slider-alt' className="fill-gray-600 lg:hidden"></box-icon>
@@ -62,6 +74,7 @@ const Header = () => {
                             </div>
                             <nav className="py-4 flex flex-col gap-4">
                                 <ButtonLink titulo={"Favoritos"} icon={<box-icon name='heart' ></box-icon>} />
+                                <ButtonLink titulo={"Meu perfil"} icon={<box-icon name='heart' ></box-icon>} />
                                 <ButtonLink
                                     titulo={"Sair"}
                                     icon={<box-icon name='log-out'></box-icon>}

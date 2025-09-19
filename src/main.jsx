@@ -4,13 +4,16 @@ import './index.css'
 import { App } from 'antd'
 import Rotas from './routes/Rotas'
 import { ToastContainer } from 'react-toastify'
+import LogadoProvider from './contexts/LogadoContext'
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App>
-      <Rotas />
-      <ToastContainer />
+      <LogadoProvider>
+        <Rotas />
+        <ToastContainer />
+      </LogadoProvider>
     </App>
   </StrictMode>,
 )
