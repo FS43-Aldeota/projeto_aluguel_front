@@ -10,9 +10,14 @@ import Favoritos from "../pages/Favoritos";
 import Perfil from "../pages/Perfil";
 import PerfilLayout from "../layouts/PerfilLayout";
 import Imoveis from "../pages/Imoveis";
+import { useContext } from "react";
+import { LogadoContext } from "../contexts/LogadoContext";
+import Pagina404 from "../pages/Pagina404";
 
 
 const Rotas = () => {
+
+    const { logado } = useContext(LogadoContext);
     return (
         <BrowserRouter>
             <Routes>
@@ -20,14 +25,19 @@ const Rotas = () => {
                     <Route index element={<Inicio />} />
                     <Route path="/pesquisa" element={<Pesquisa />} />
                     <Route path="/favoritos" element={<Favoritos />} />
-                    <Route path="/meu-perfil" element={<PerfilLayout/>}>
-                        <Route index element={<Perfil />} />
-                        <Route path="/meu-perfil/imoveis" element={<Imoveis />} />
-                    </Route>
+                    {
+                        logado && (
+                            <Route path="/meu-perfil" element={<PerfilLayout/>}>
+                                <Route index element={<Perfil />} />
+                                <Route path="/meu-perfil/imoveis" element={<Imoveis />} />
+                            </Route>
+                        )
+                    }
                 </Route>
                 <Route path="/login" element={<Login />} />
                 <Route path="/cadastro" element={<Cadastro />} />
                 <Route path="/teste-card" element={<TesteImovelCard />} />
+                <Route path="*" element={<Pagina404 />} />
             </Routes>
         </BrowserRouter>
     );
